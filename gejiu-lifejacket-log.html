@@ -106,21 +106,20 @@ td.split { border-left-width: 0.6mm; }
 
     <table>
       <colgroup>
-        <col style="width:9mm"><col style="width:28mm"><col style="width:30mm">
-        <col style="width:20mm"><col style="width:12mm"><col style="width:27mm"><col style="width:16mm">
-        <col style="width:20mm"><col style="width:12mm"><col style="width:27mm"><col style="width:36mm"><col style="width:16mm">
-        <col style="width:24mm">
+        <col style="width:9mm"><col style="width:34mm">
+        <col style="width:20mm"><col style="width:12mm"><col style="width:33mm"><col style="width:16mm">
+        <col style="width:20mm"><col style="width:12mm"><col style="width:33mm"><col style="width:36mm"><col style="width:16mm">
+        <col style="width:36mm">
       </colgroup>
       <thead>
         <tr class="group">
-          <th colspan="3">领用人</th>
+          <th colspan="2">领用人</th>
           <th colspan="4" class="out">领 取</th>
           <th colspan="5">归 还</th>
           <th rowspan="2">备注<small>Notes</small></th>
         </tr>
         <tr>
           <th>序号<small>No.</small></th>
-          <th>姓名<small>Name</small></th>
           <th>手机号<small>Mobile</small></th>
           <th class="out">日期 时间<small>Date / Time</small></th>
           <th class="out">数量<small>Qty</small></th>
@@ -170,7 +169,7 @@ td.split { border-left-width: 0.6mm; }
     for (var r = 1; r <= ROWS; r++) {
       html += "<tr>" +
         '<td class="no">' + (p * ROWS + r) + "</td>" +
-        "<td></td><td></td>" +
+        "<td></td>" +
         '<td class="split">' + dt + "</td>" + qty + "<td></td><td></td>" +
         '<td class="split">' + dt + "</td>" + qty + "<td></td><td>" + cond + "</td><td></td>" +
         "<td></td></tr>";
