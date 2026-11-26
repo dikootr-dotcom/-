@@ -61,7 +61,6 @@ thead tr.group th { font-size: 9pt; letter-spacing: .3em; padding: 0.8mm; }
 thead th.out { background: var(--band-2); }
 tbody td { height: 9.6mm; vertical-align: middle; }
 td.no { text-align: center; font-family: var(--font-num); font-weight: 600; font-size: 10.5pt; color: var(--ink-soft); background: var(--band); }
-td.id { border-right-width: 0.5mm; }
 .hint { display: block; padding: 0 1.2mm; font-size: 7pt; color: var(--hair); white-space: nowrap; letter-spacing: .02em; }
 .hint.dt { word-spacing: 2.2mm; text-align: right; color: var(--ink-soft); opacity: .6; }
 .chk { display: flex; gap: 1.6mm; padding: 0 1.2mm; font-size: 7pt; color: var(--ink-soft); white-space: nowrap; }
@@ -109,28 +108,28 @@ td.split { border-left-width: 0.6mm; }
 
     <table>
       <colgroup>
-        <col style="width:9mm"><col style="width:17mm"><col style="width:24mm"><col style="width:12mm"><col style="width:27mm">
-        <col style="width:20mm"><col style="width:25mm"><col style="width:15mm">
-        <col style="width:20mm"><col style="width:25mm"><col style="width:36mm"><col style="width:15mm">
-        <col style="width:32mm">
+        <col style="width:9mm"><col style="width:28mm"><col style="width:30mm">
+        <col style="width:20mm"><col style="width:12mm"><col style="width:27mm"><col style="width:16mm">
+        <col style="width:20mm"><col style="width:12mm"><col style="width:27mm"><col style="width:36mm"><col style="width:16mm">
+        <col style="width:24mm">
       </colgroup>
       <thead>
         <tr class="group">
-          <th colspan="5">领用人</th>
-          <th colspan="3" class="out">领 取</th>
-          <th colspan="4">归 还</th>
+          <th colspan="3">领用人</th>
+          <th colspan="4" class="out">领 取</th>
+          <th colspan="5">归 还</th>
           <th rowspan="2">备注<small>Notes</small></th>
         </tr>
         <tr>
           <th>序号<small>No.</small></th>
-          <th>救生衣<br>编号<small>Jacket No.</small></th>
           <th>姓名<small>Name</small></th>
-          <th>参赛号<small>Bib</small></th>
           <th>手机号<small>Mobile</small></th>
           <th class="out">日期 时间<small>Date / Time</small></th>
+          <th class="out">数量<small>Qty</small></th>
           <th class="out">领用人签名<small>Signature</small></th>
           <th class="out">发放人<small>Issued by</small></th>
           <th>日期 时间<small>Date / Time</small></th>
+          <th>数量<small>Qty</small></th>
           <th>归还人签名<small>Signature</small></th>
           <th>归还状况<small>Condition</small></th>
           <th>接收人<small>Received by</small></th>
@@ -144,8 +143,8 @@ td.split { border-left-width: 0.6mm; }
         <b>领用须知</b>
         <ol>
           <li>领用前与发放人一起检查：外观无破损，充气装置指示正常，气瓶已拧紧。</li>
-          <li>救生衣仅限本人飞行使用，不得转借他人。</li>
-          <li>当日飞行结束后归还，归还时由接收人当面检查并签字。</li>
+          <li>领用人对所领救生衣负责；替他人代领的，由领用人统一归还。</li>
+          <li>当日飞行结束后归还，接收人当面清点数量、检查后签字。</li>
           <li>落水或误触发导致充气的，归还时须勾选“已充气”，由组委会更换气瓶后再发放。</li>
           <li>如有遗失或人为损坏，按组委会规定赔偿：每件 ＿＿＿＿ 元。</li>
           <li>超过当日 ＿＿:＿＿ 未归还的，由工作人员电话联系领用人。</li>
@@ -166,6 +165,7 @@ td.split { border-left-width: 0.6mm; }
   var host = document.getElementById("sheets");
   var tpl = document.getElementById("sheet-tpl");
   var dt = '<span class="hint dt">月 日 :</span>';
+  var qty = '<td><span class="hint dt">件</span></td>';
   var cond = '<div class="chk"><span>完好</span><span>损坏</span><span>已充气</span></div>';
   for (var p = 0; p < PAGES; p++) {
     var node = tpl.content.cloneNode(true);
@@ -173,9 +173,9 @@ td.split { border-left-width: 0.6mm; }
     for (var r = 1; r <= ROWS; r++) {
       html += "<tr>" +
         '<td class="no">' + (p * ROWS + r) + "</td>" +
-        '<td class="id"></td><td></td><td></td><td></td>' +
-        "<td>" + dt + "</td><td></td><td></td>" +
-        '<td class="split">' + dt + "</td><td></td><td>" + cond + "</td><td></td>" +
+        "<td></td><td></td>" +
+        '<td class="split">' + dt + "</td>" + qty + "<td></td><td></td>" +
+        '<td class="split">' + dt + "</td>" + qty + "<td></td><td>" + cond + "</td><td></td>" +
         "<td></td></tr>";
     }
     node.querySelector("tbody").innerHTML = html;
