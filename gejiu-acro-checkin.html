@@ -1,0 +1,194 @@
+<title>个旧特技滑翔伞签到表</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=Barlow+Condensed:wght@500;600;700&display=swap">
+<style>
+/* Layout: A4 landscape paper sheets, print-first; on screen they sit on a tinted desk and scroll sideways on phones. */
+:root {
+  --desk: #e6ebf0;
+  --desk-fg: #2a3440;
+  --paper: #ffffff;
+  --ink: #16202b;
+  --ink-soft: #5b6774;
+  --rule: #2b3846;
+  --hair: #b7c1cc;
+  --band: #eef2f6;
+  --accent: #0b5d8f;
+  --font-body: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", "WenQuanYi Zen Hei", sans-serif;
+  --font-num: "Barlow Condensed", "Arial Narrow", "Noto Sans SC", sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --desk: #141a21; --desk-fg: #c9d3dd; color-scheme: dark; }
+}
+:root[data-theme="dark"] { --desk: #141a21; --desk-fg: #c9d3dd; color-scheme: dark; }
+
+body { background: var(--desk); color: var(--desk-fg); font-family: var(--font-body); }
+
+.wrap {
+  padding-block: 24px 40px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: grid; gap: 16px;
+}
+.note { max-width: 70ch; margin: 0 auto; font-size: 13px; line-height: 1.6; text-align: left; width: 100%; }
+.note b { font-weight: 700; }
+.scroller { overflow-x: auto; }
+.sheets { display: grid; gap: 24px; justify-content: center; width: max-content; margin: 0 auto; }
+
+/* ---------- the sheet itself: fixed paper colors in every theme ---------- */
+.sheet {
+  width: 297mm; height: 210mm; box-sizing: border-box;
+  padding: 9mm 10mm 8mm;
+  background: var(--paper); color: var(--ink);
+  box-shadow: 0 2px 10px rgba(0,0,0,.18);
+  display: flex; flex-direction: column; gap: 3mm;
+  font-size: 9pt; overflow: hidden;
+}
+.head { display: flex; justify-content: space-between; align-items: flex-end; gap: 6mm; border-bottom: 0.6mm solid var(--rule); padding-bottom: 2.5mm; }
+.title { display: grid; gap: 1mm; }
+.eyebrow { font-family: var(--font-num); font-weight: 600; letter-spacing: .12em; text-transform: uppercase; font-size: 8pt; color: var(--accent); }
+h1 { margin: 0; font-size: 19pt; font-weight: 900; letter-spacing: .02em; text-wrap: balance; }
+h1 .yr { font-family: var(--font-num); font-weight: 700; font-size: 22pt; margin-right: 1.5mm; color: var(--accent); }
+.meta { display: grid; grid-template-columns: repeat(2, auto); gap: 2mm 6mm; font-size: 9pt; }
+.meta span { white-space: nowrap; }
+.meta i { display: inline-block; width: 34mm; border-bottom: 0.25mm solid var(--rule); font-style: normal; }
+.meta .box { display: inline-block; width: 3mm; height: 3mm; border: 0.25mm solid var(--rule); vertical-align: -0.4mm; margin: 0 0.8mm 0 2mm; }
+
+table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+th, td { border: 0.25mm solid var(--rule); padding: 0; }
+thead th {
+  background: var(--band); font-weight: 700; font-size: 8.5pt; line-height: 1.25;
+  padding: 1.2mm 1mm; vertical-align: middle; text-align: center;
+}
+thead th small { display: block; font-weight: 400; font-size: 6.2pt; color: var(--ink-soft); font-family: var(--font-num); letter-spacing: .03em; }
+tbody td { height: 13mm; vertical-align: top; }
+td.no { text-align: center; vertical-align: middle; font-family: var(--font-num); font-weight: 600; font-size: 11pt; color: var(--ink-soft); background: var(--band); }
+.stack { display: grid; grid-template-rows: 1fr 1fr; height: 13mm; }
+.stack > div { position: relative; padding: 0.6mm 1mm 0; }
+.stack > div + div { border-top: 0.2mm dashed var(--hair); }
+.lab { font-size: 5.8pt; color: var(--ink-soft); line-height: 1; }
+td.boxy .lab, td.single .lab { display: block; padding: 0.6mm 1mm 0; }
+
+.foot { margin-top: auto; display: grid; grid-template-columns: 1fr auto; gap: 6mm; align-items: end; font-size: 7.4pt; line-height: 1.55; }
+.decl { border: 0.25mm solid var(--rule); padding: 1.8mm 2.5mm; }
+.decl b { font-weight: 700; color: var(--ink); }
+.decl ol { margin: 0.6mm 0 0; padding-left: 4.2mm; }
+.decl p { margin: 0.8mm 0 0; color: var(--ink-soft); }
+.staff { display: grid; gap: 2.6mm; font-size: 8.5pt; white-space: nowrap; }
+.staff i { display: inline-block; width: 30mm; border-bottom: 0.25mm solid var(--rule); font-style: normal; }
+.pageno { font-family: var(--font-num); font-weight: 600; font-size: 9pt; text-align: right; color: var(--ink-soft); letter-spacing: .05em; }
+
+@page { size: A4 landscape; margin: 0; }
+@media print {
+  html, body { background: #fff; margin: 0; padding: 0; }
+  .note { display: none; }
+  .wrap, .scroller, .sheets { padding: 0; margin: 0; gap: 0; display: block; overflow: visible; width: auto; }
+  .sheet { box-shadow: none; break-after: page; }
+  .sheet:last-child { break-after: auto; }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+</style>
+
+<div class="wrap">
+  <p class="note">A4 横向，每页 10 位选手，共 5 页（序号 1–50）。打印用同目录下的 PDF；需要更多页或改字段，告诉 Claude 即可。<b>虚线</b>格子上下各填一项。</p>
+  <div class="scroller"><div class="sheets" id="sheets"></div></div>
+</div>
+
+<template id="sheet-tpl">
+  <section class="sheet">
+    <header class="head">
+      <div class="title">
+        <div class="eyebrow">Gejiu Paragliding Acro Competition · Pilot Check-in</div>
+        <h1><span class="yr">2026</span>个旧特技滑翔伞比赛 · 选手签到表</h1>
+      </div>
+      <div class="meta">
+        <span>日期 <i></i></span>
+        <span>地点 <i></i></span>
+        <span>签到类型<span class="box"></span>报到<span class="box"></span>每日签到</span>
+        <span>比赛日 第 <i style="width:10mm"></i> 天</span>
+      </div>
+    </header>
+
+    <table>
+      <colgroup>
+        <col style="width:9mm"><col style="width:12mm"><col style="width:27mm"><col style="width:36mm">
+        <col style="width:26mm"><col style="width:26mm"><col style="width:34mm"><col style="width:40mm">
+        <col style="width:12mm"><col style="width:16mm"><col style="width:22mm"><col style="width:17mm">
+      </colgroup>
+      <thead>
+        <tr>
+          <th>序号<small>No.</small></th>
+          <th>参赛号<small>Bib</small></th>
+          <th>姓名 / 性别<small>Name / Sex</small></th>
+          <th>身份证 / 护照号<small>ID / Passport No.</small></th>
+          <th>手机号<small>Mobile</small></th>
+          <th>俱乐部 / 执照号<small>Club / Licence No.</small></th>
+          <th>紧急联系人<small>Emergency Contact</small></th>
+          <th>保险公司 / 保单号<small>Insurer / Policy No.</small></th>
+          <th>血型<small>Blood</small></th>
+          <th>备份伞<br>打包日期<small>Reserve Repack</small></th>
+          <th>本人签名<small>Signature</small></th>
+          <th>时间/核验<small>Time / Check</small></th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <footer class="foot">
+      <div class="decl">
+        <b>签名即确认 By signing I confirm：</b>
+        <ol>
+          <li>以上信息真实有效；所持保险在比赛期间有效，且<b>明确承保滑翔伞（含特技）飞行</b>，普通意外险多将其列为除外责任。</li>
+          <li>本人已阅读并遵守竞赛规程、安全须知及现场裁判指令；备份伞在有效打包期内，装备经本人检查适航。</li>
+          <li>本人了解特技滑翔伞飞行存在受伤乃至死亡的风险，自愿参赛并已另行签署《免责声明》。</li>
+        </ol>
+        <p>个人信息仅用于本次赛事组织、保险理赔及应急联络，赛后由组委会妥善保管或销毁。</p>
+      </div>
+      <div class="staff">
+        <span>核验人 <i></i></span>
+        <span>审核人 <i></i></span>
+        <div class="pageno"></div>
+      </div>
+    </footer>
+  </section>
+</template>
+
+<script>
+(function () {
+  var PAGES = 5, ROWS = 10;
+  var host = document.getElementById("sheets");
+  var tpl = document.getElementById("sheet-tpl");
+
+  function stack(top, bottom) {
+    return '<td><div class="stack"><div><span class="lab">' + top + '</span></div><div><span class="lab">' + bottom + '</span></div></div></td>';
+  }
+  function single(label) { return '<td class="single">' + (label ? '<span class="lab">' + label + '</span>' : '') + '</td>'; }
+
+  for (var p = 0; p < PAGES; p++) {
+    var node = tpl.content.cloneNode(true);
+    var body = node.querySelector("tbody");
+    var html = "";
+    for (var r = 1; r <= ROWS; r++) {
+      var n = p * ROWS + r;
+      html += "<tr>" +
+        '<td class="no">' + n + "</td>" +
+        single("") +
+        stack("姓名", "□男 □女") +
+        single("") +
+        single("") +
+        stack("俱乐部 / 队伍", "执照号 · 等级") +
+        stack("姓名 · 关系", "电话") +
+        stack("保险公司 · 保单号", "有效期至") +
+        single("如 O+") +
+        single("年 / 月") +
+        single("") +
+        stack("时间", "□证件 □保险") +
+        "</tr>";
+    }
+    body.innerHTML = html;
+    node.querySelector(".pageno").textContent = "第 " + (p + 1) + " / " + PAGES + " 页  ·  PAGE " + (p + 1) + "/" + PAGES;
+    host.appendChild(node);
+  }
+})();
+</script>
