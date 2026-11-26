@@ -1,0 +1,186 @@
+<title>个旧特技救生衣领用登记</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=Barlow+Condensed:wght@500;600;700&display=swap">
+<style>
+/* Layout: A4 landscape paper sheets, print-first; same family as the pilot check-in sheet, with a water-orange accent. */
+:root {
+  --desk: #e6ebf0;
+  --desk-fg: #2a3440;
+  --paper: #ffffff;
+  --ink: #16202b;
+  --ink-soft: #5b6774;
+  --rule: #2b3846;
+  --hair: #b7c1cc;
+  --band: #eef2f6;
+  --band-2: #fff1e6;
+  --accent: #c2501a;
+  --font-body: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", "WenQuanYi Zen Hei", sans-serif;
+  --font-num: "Barlow Condensed", "Arial Narrow", "Noto Sans SC", sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --desk: #141a21; --desk-fg: #c9d3dd; color-scheme: dark; }
+}
+:root[data-theme="dark"] { --desk: #141a21; --desk-fg: #c9d3dd; color-scheme: dark; }
+
+body { background: var(--desk); color: var(--desk-fg); font-family: var(--font-body); }
+
+.wrap {
+  padding-block: 24px 40px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: grid; gap: 16px;
+}
+.note { max-width: 70ch; margin: 0 auto; font-size: 13px; line-height: 1.6; width: 100%; }
+.scroller { overflow-x: auto; }
+.sheets { display: grid; gap: 24px; width: max-content; margin: 0 auto; }
+
+.sheet {
+  width: 297mm; height: 210mm; box-sizing: border-box;
+  padding: 9mm 10mm 8mm;
+  background: var(--paper); color: var(--ink);
+  box-shadow: 0 2px 10px rgba(0,0,0,.18);
+  display: flex; flex-direction: column; gap: 3mm;
+  font-size: 9pt; overflow: hidden;
+}
+.head { display: flex; justify-content: space-between; align-items: flex-end; gap: 6mm; border-bottom: 0.6mm solid var(--rule); padding-bottom: 2.5mm; }
+.title { display: grid; gap: 1mm; }
+.eyebrow { font-family: var(--font-num); font-weight: 600; letter-spacing: .12em; text-transform: uppercase; font-size: 8pt; color: var(--accent); }
+h1 { margin: 0; font-size: 19pt; font-weight: 900; letter-spacing: .02em; }
+h1 .yr { font-family: var(--font-num); font-weight: 700; font-size: 22pt; margin-right: 1.5mm; color: var(--accent); }
+.meta { display: grid; grid-template-columns: repeat(2, auto); gap: 2mm 6mm; font-size: 9pt; }
+.meta span { white-space: nowrap; }
+.meta i { display: inline-block; width: 30mm; border-bottom: 0.25mm solid var(--rule); font-style: normal; }
+
+table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+th, td { border: 0.25mm solid var(--rule); padding: 0; }
+thead th { background: var(--band); font-weight: 700; font-size: 8.5pt; line-height: 1.25; padding: 1mm; text-align: center; vertical-align: middle; }
+thead th small { display: block; font-weight: 400; font-size: 6.2pt; color: var(--ink-soft); font-family: var(--font-num); letter-spacing: .03em; }
+thead tr.group th { font-size: 9pt; letter-spacing: .3em; padding: 0.8mm; }
+thead th.out { background: var(--band-2); }
+tbody td { height: 9.6mm; vertical-align: middle; }
+td.no { text-align: center; font-family: var(--font-num); font-weight: 600; font-size: 10.5pt; color: var(--ink-soft); background: var(--band); }
+td.id { border-right-width: 0.5mm; }
+.hint { display: block; padding: 0 1.2mm; font-size: 7pt; color: var(--hair); white-space: nowrap; letter-spacing: .02em; }
+.hint.dt { word-spacing: 2.2mm; text-align: right; color: var(--ink-soft); opacity: .6; }
+.chk { display: flex; gap: 1.6mm; padding: 0 1.2mm; font-size: 7pt; color: var(--ink-soft); white-space: nowrap; }
+.chk span::before { content: ""; display: inline-block; width: 2.4mm; height: 2.4mm; border: 0.2mm solid var(--rule); margin-right: 0.6mm; vertical-align: -0.35mm; }
+td.split { border-left-width: 0.6mm; }
+
+.foot { margin-top: auto; display: grid; grid-template-columns: 1fr auto; gap: 6mm; align-items: end; font-size: 7.4pt; line-height: 1.55; }
+.rules { border: 0.25mm solid var(--rule); padding: 1.6mm 2.5mm; }
+.rules b { font-weight: 700; }
+.rules ol { margin: 0.4mm 0 0; padding-left: 4.2mm; columns: 2; column-gap: 6mm; }
+.staff { display: grid; gap: 2.4mm; font-size: 8.5pt; white-space: nowrap; }
+.staff i { display: inline-block; width: 26mm; border-bottom: 0.25mm solid var(--rule); font-style: normal; }
+.pageno { font-family: var(--font-num); font-weight: 600; font-size: 9pt; text-align: right; color: var(--ink-soft); letter-spacing: .05em; }
+
+@page { size: A4 landscape; margin: 0; }
+@media print {
+  html, body { background: #fff; margin: 0; padding: 0; }
+  .note { display: none; }
+  .wrap, .scroller, .sheets { padding: 0; margin: 0; gap: 0; display: block; overflow: visible; width: auto; }
+  .sheet { box-shadow: none; break-after: page; }
+  .sheet:last-child { break-after: auto; }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+</style>
+
+<div class="wrap">
+  <p class="note">A4 横向，每页 14 行，共 3 页（序号 1–42）。打印用同目录下的 PDF。每天一张新表，或一行记一次领用、隔天接着往下写都可以。</p>
+  <div class="scroller"><div class="sheets" id="sheets"></div></div>
+</div>
+
+<template id="sheet-tpl">
+  <section class="sheet">
+    <header class="head">
+      <div class="title">
+        <div class="eyebrow">Gejiu Paragliding Acro Competition · Life Jacket Log</div>
+        <h1><span class="yr">2026</span>个旧特技滑翔伞比赛 · 救生衣领用登记表</h1>
+      </div>
+      <div class="meta">
+        <span>日期 <i></i></span>
+        <span>发放点 <i></i></span>
+        <span>本日发出 <i style="width:14mm"></i> 件</span>
+        <span>本日收回 <i style="width:14mm"></i> 件</span>
+      </div>
+    </header>
+
+    <table>
+      <colgroup>
+        <col style="width:9mm"><col style="width:17mm"><col style="width:24mm"><col style="width:12mm"><col style="width:27mm">
+        <col style="width:20mm"><col style="width:25mm"><col style="width:15mm">
+        <col style="width:20mm"><col style="width:25mm"><col style="width:36mm"><col style="width:15mm">
+        <col style="width:32mm">
+      </colgroup>
+      <thead>
+        <tr class="group">
+          <th colspan="5">领用人</th>
+          <th colspan="3" class="out">领 取</th>
+          <th colspan="4">归 还</th>
+          <th rowspan="2">备注<small>Notes</small></th>
+        </tr>
+        <tr>
+          <th>序号<small>No.</small></th>
+          <th>救生衣<br>编号<small>Jacket No.</small></th>
+          <th>姓名<small>Name</small></th>
+          <th>参赛号<small>Bib</small></th>
+          <th>手机号<small>Mobile</small></th>
+          <th class="out">日期 时间<small>Date / Time</small></th>
+          <th class="out">领用人签名<small>Signature</small></th>
+          <th class="out">发放人<small>Issued by</small></th>
+          <th>日期 时间<small>Date / Time</small></th>
+          <th>归还人签名<small>Signature</small></th>
+          <th>归还状况<small>Condition</small></th>
+          <th>接收人<small>Received by</small></th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <footer class="foot">
+      <div class="rules">
+        <b>领用须知</b>
+        <ol>
+          <li>领用前与发放人一起检查：外观无破损，充气装置指示正常，气瓶已拧紧。</li>
+          <li>救生衣仅限本人飞行使用，不得转借他人。</li>
+          <li>当日飞行结束后归还，归还时由接收人当面检查并签字。</li>
+          <li>落水或误触发导致充气的，归还时须勾选“已充气”，由组委会更换气瓶后再发放。</li>
+          <li>如有遗失或人为损坏，按组委会规定赔偿：每件 ＿＿＿＿ 元。</li>
+          <li>超过当日 ＿＿:＿＿ 未归还的，由工作人员电话联系领用人。</li>
+        </ol>
+      </div>
+      <div class="staff">
+        <span>当日负责人 <i></i></span>
+        <span>核对人 <i></i></span>
+        <div class="pageno"></div>
+      </div>
+    </footer>
+  </section>
+</template>
+
+<script>
+(function () {
+  var PAGES = 3, ROWS = 14;
+  var host = document.getElementById("sheets");
+  var tpl = document.getElementById("sheet-tpl");
+  var dt = '<span class="hint dt">月 日 :</span>';
+  var cond = '<div class="chk"><span>完好</span><span>损坏</span><span>已充气</span></div>';
+  for (var p = 0; p < PAGES; p++) {
+    var node = tpl.content.cloneNode(true);
+    var html = "";
+    for (var r = 1; r <= ROWS; r++) {
+      html += "<tr>" +
+        '<td class="no">' + (p * ROWS + r) + "</td>" +
+        '<td class="id"></td><td></td><td></td><td></td>' +
+        "<td>" + dt + "</td><td></td><td></td>" +
+        '<td class="split">' + dt + "</td><td></td><td>" + cond + "</td><td></td>" +
+        "<td></td></tr>";
+    }
+    node.querySelector("tbody").innerHTML = html;
+    node.querySelector(".pageno").textContent = "第 " + (p + 1) + " / " + PAGES + " 页  ·  PAGE " + (p + 1) + "/" + PAGES;
+    host.appendChild(node);
+  }
+})();
+</script>
